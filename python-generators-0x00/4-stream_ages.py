@@ -11,6 +11,16 @@ def streamuserages(connection):
         yield int(age)
     cursor.close()
     
+def stream_user_ages(connection):
+    """
+    Generator that yields user ages one by one from user_data.
+    """
+    cursor = connection.cursor()
+    cursor.execute("SELECT age FROM user_data;")
+    for (age,) in cursor:      # ✅ loop 1
+        yield int(age)
+    cursor.close()
+    
 def average_age(connection):
     """
     Calculate average age using the generator without loading all rows in memory.
