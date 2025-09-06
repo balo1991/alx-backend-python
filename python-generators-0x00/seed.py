@@ -3,15 +3,18 @@ import mysql.connector
 from mysql.connector import errorcode
 import csv
 import uuid
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 
 def connect_db():
     """Connect to MySQL server (no DB selected)."""
     try:
         connection = mysql.connector.connect(
-            host="localhost",
-            user="root",          # adjust if needed
-            password="root"       # adjust if needed
+            host=os.getenv("DB_HOST"),
+            user=os.getenv("DB_USER"),          # adjust if needed
+            password=os.getenv("DB_PASSWORD")       # adjust if needed
         )
         return connection
     except mysql.connector.Error as err:
@@ -35,9 +38,9 @@ def connect_to_prodev():
     """Connect directly to ALX_prodev database."""
     try:
         connection = mysql.connector.connect(
-            host="localhost",
-            user="root",          # adjust if needed
-            password="root",      # adjust if needed
+            host=os.getenv("DB_HOST"),
+            user=os.getenv("DB_USER"),          # adjust if needed
+            password=os.getenv("DB_PASSWORD"),       # adjust if needed
             database="ALX_prodev"
         )
         return connection
@@ -101,7 +104,5 @@ def stream_rows(connection):
 
 
 
-for row in seed.stream_rows(connection):
-    print(row)
-    break  # remove this break to stream all rows
+
 
