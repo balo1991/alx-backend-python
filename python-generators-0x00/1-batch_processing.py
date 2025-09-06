@@ -15,7 +15,7 @@ def stream_users_in_batches(connection, batch_size=10):
         if not batch:
             break
         yield batch
-
+        
     cursor.close()
 
 
