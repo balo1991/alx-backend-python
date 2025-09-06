@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 seed = __import__('seed')
 
-def stream_user_ages(connection):
+def streamuserages(connection):
     """
     Generator that yields user ages one by one from user_data.
     """
@@ -17,7 +17,7 @@ def average_age(connection):
     """
     total = 0
     count = 0
-    for age in stream_user_ages(connection):  # ✅ streaming
+    for age in streamuserages(connection):  # ✅ streaming
         total += age
         count += 1
     return total / count if count > 0 else 0
