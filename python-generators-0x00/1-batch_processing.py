@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import mysql.connector
+seed = __import__('seed')
 
 
 def stream_users_in_batches(connection, batch_size=10):
@@ -23,5 +23,10 @@ def batch_processing(connection, batch_size=10):
     """
     Generator that processes batches and yields users over age 25.
     """
-    for batch in stream_users_in_batches(connection, batch_size):  # loop 2
-        yield [user for user in batch if int(user["age"]) > 25]   # loop 3 (inside comprehension)
+    def filter_batch(batch_size):
+        for batch in stream_users_in_batches(connection, batch_size):  # loop 2
+            filtered_user = [user for user in batch if int(user["age"]) > 25]   # loop 3 (inside comprehension)
+            yield filtered_user
+            
+    for user in filter_batch(batch_size):
+        print(user)
