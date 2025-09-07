@@ -29,4 +29,4 @@ def batch_processing(connection, batch_size=10):
             yield filtered_user
             
     for user in filter_batch(batch_size):
-        print(user)
+        return user
