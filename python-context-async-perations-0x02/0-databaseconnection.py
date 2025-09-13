@@ -5,23 +5,26 @@ from seed import connect_to_prodev   # reuse your DB connection utility
 class DatabaseConnection:
     """Custom context manager for handling DB connections"""
 
+    def __init__(self):
+        """Initialize connection and cursor placeholders"""
+        self.connection = None
+        self.cursor = None
+
     def __enter__(self):
         self.connection = connect_to_prodev()
         self.cursor = self.connection.cursor()
-        return self.cursor   # This will be assigned to the variable after `as`
+        return self.cursor   # returned to `as cursor`
 
     def __exit__(self, exc_type, exc_value, traceback):
         if self.cursor:
             self.cursor.close()
         if self.connection:
-            # rollback if an exception occurred, otherwise commit
             if exc_type is not None:
                 self.connection.rollback()
             else:
                 self.connection.commit()
             self.connection.close()
-        # Returning False lets exceptions propagate
-        return False
+        return False   # let exceptions propagate
 
 
 if __name__ == "__main__":
