@@ -29,6 +29,6 @@ class DatabaseConnection:
 
 if __name__ == "__main__":
     with DatabaseConnection() as cursor:
-        cursor.execute("SELECT * FROM user_data LIMIT 5;")
+        cursor.execute("SELECT * FROM users;")
         rows = cursor.fetchall()
         print("Query Results:", rows)
